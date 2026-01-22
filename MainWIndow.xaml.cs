@@ -31,7 +31,7 @@ namespace Belpost.Auth
                 }
                 else
                 {
-                    MessageBox.Show("Неверный пароль!");
+                    MessageBox.Show("Неверный пароль! ");
                 }
             }
         }
