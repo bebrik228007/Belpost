@@ -41,13 +41,17 @@ namespace Belpost.Auth
             PasswordBox.Visibility = Visibility.Collapsed;
             VisibleTextBox.Text = PasswordBox.Password;
             VisibleTextBox.Visibility = Visibility.Visible;
-
         }
 
         private void CheckBox1_UnChecked(object sender, RoutedEventArgs e)
         {
             PasswordBox.Visibility = Visibility.Visible;
             VisibleTextBox.Visibility = Visibility.Hidden;
+        }
+
+        private void V_Budushem_Dobavlu(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
