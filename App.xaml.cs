@@ -4,14 +4,14 @@ namespace Belpost.Auth
 {
     public partial class App : Application
     {
+        public static AppDb? Db { get; private set; }
+
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
 
-            using (var db = new AppDb())
-            {
-                db.Database.EnsureCreated();
-            }
+            Db = new AppDb();
+            Db.Database.EnsureCreated();
         }
     }
 }
