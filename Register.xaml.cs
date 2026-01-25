@@ -20,6 +20,9 @@ namespace Belpost.Auth
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
+            var mainWindow = new MainWindow();
+            mainWindow.Show();
+
             this.Close();
         }
 

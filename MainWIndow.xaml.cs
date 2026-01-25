@@ -67,7 +67,7 @@ namespace Belpost.Auth
                     }
                     else
                     {
-                        MessageBox.Show($"Добро пожаловать, {user.Role}!");
+                        MessageBox.Show($"{nowMoscow} , {user.PasswordChangedAt} , {nowMoscow - user.PasswordChangedAt} , Добро пожаловать, {user.Role}!");
                         ClearInputs();
 
                         user.FailedAttempts = 0;
