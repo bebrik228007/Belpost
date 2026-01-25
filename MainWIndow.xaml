@@ -78,7 +78,7 @@
                        FontSize="12"
                        Foreground="Gray"
                        HorizontalAlignment="Center"
-                       Cursor="Hand"/>
+                       Cursor="Hand" MouseLeftButtonDown="Register_Click"/>
         </StackPanel>
 
         <!-- Подвал -->
@@ -88,5 +88,7 @@
                        FontSize="12"
                        HorizontalAlignment="Center"/>
         </Border>
+        <TextBox x:Name="TimeBox" HorizontalAlignment="Left" BorderBrush="White" Height="21" Margin="381,182,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="51"/>
+        <Button Content="Button" HorizontalAlignment="Left" Height="22" Margin="539,149,0,0" Grid.Row="1" VerticalAlignment="Top" Width="40" Click="Button_Click"/>
     </Grid>
 </Window>

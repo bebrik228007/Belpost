@@ -10,7 +10,7 @@ namespace Belpost.Auth
     {
         public int Id { get; set; }
         public string Username { get; set; } = "";
-        public string Role { get; set; } = ""; // Chief или Operator
+        public string Role { get; set; } = ""; 
         public string PasswordHash { get; set; } = "";
         public string PasswordSalt { get; set; } = "";
         public DateTime PasswordChangedAt { get; set; }
