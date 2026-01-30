@@ -8,7 +8,7 @@ namespace Belpost.Auth
 {
     public partial class MainWindow : Window
     {
-        private DispatcherTimer lockTimer;
+        private DispatcherTimer? lockTimer;
         private int lockSecondsRemaining;
 
         public MainWindow()
@@ -67,7 +67,7 @@ namespace Belpost.Auth
                     }
                     else
                     {
-                        MessageBox.Show($"{nowMoscow} , {user.PasswordChangedAt} , {nowMoscow - user.PasswordChangedAt} , Добро пожаловать, {user.Role}!");
+                        MessageBox.Show($"Добро пожаловать, {user.Role}!");
                         ClearInputs();
 
                         user.FailedAttempts = 0;
