@@ -11,7 +11,7 @@ namespace Belpost.Auth
     public partial class Register : Window
     {
         private DispatcherTimer timer = null;
-        private int x = 0;
+        private int inactivityCounter = 0;
 
         public Register()
         {
@@ -22,7 +22,6 @@ namespace Belpost.Auth
         {
             var mainWindow = new MainWindow();
             mainWindow.Show();
-
             this.Close();
         }
 
@@ -58,62 +57,71 @@ namespace Belpost.Auth
                 PasswordSalt = salt,
                 PasswordChangedAt = moscowNow,
                 FailedAttempts = 0,
-                IsLocked = false,
+                IsLocked = false
             };
 
             try
             {
+           
                 App.Db.Users.Add(user);
                 App.Db.SaveChanges();
+
+                App.Db.PasswordHistory.Add(new PasswordHistory
+                {
+                    UserId = user.Id,
+                    PasswordHash = hash,
+                    ChangedAt = moscowNow
+                });
+
+                App.Db.SaveChanges();
+
+                MessageBox.Show("Пользователь успешно зарегистрирован!");
+
+                var mainWindow = new MainWindow();
+                mainWindow.Show();
+                this.Close();
             }
-            catch (NullReferenceException exception)
+            catch (Exception ex)
             {
-                Console.WriteLine("Ошибка " + exception.Message);
+                MessageBox.Show("Ошибка при сохранении: " + ex.Message);
             }
-
-            MessageBox.Show("Пользователь успешно зарегистрирован!");
-
-            var mainWindow = new MainWindow();
-            mainWindow.Show();
-            this.Close();
         }
 
-        
+      
         private void Minute_Timer(object sender, RoutedEventArgs e)
         {
-            timerStart();
+            StartInactivityTimer();
         }
 
-        private void timerStart()
+        private void StartInactivityTimer()
         {
             timer = new DispatcherTimer();
-            timer.Tick += new EventHandler(timerTick);
-            timer.Interval = TimeSpan.FromMilliseconds(1000);
+            timer.Tick += new EventHandler(TimerTick);
+            timer.Interval = TimeSpan.FromSeconds(1);
             timer.Start();
         }
 
-        private void UserActivity()
+        private void ResetActivity()
         {
-            x = 0;
+            inactivityCounter = 0;
         }
 
-        private void Register_MouseMove(object sender, MouseEventArgs e) => UserActivity();
-        private void Register_MouseDown(object sender, MouseButtonEventArgs e) => UserActivity();
-        private void Register_KeyDown(object sender, KeyEventArgs e) => UserActivity();
+        private void Register_MouseMove(object sender, MouseEventArgs e) => ResetActivity();
+        private void Register_MouseDown(object sender, MouseButtonEventArgs e) => ResetActivity();
+        private void Register_KeyDown(object sender, KeyEventArgs e) => ResetActivity();
 
-
-
-        private void timerTick(object sender, EventArgs e)
+        private void TimerTick(object sender, EventArgs e)
         {
-            if (x >= 60)
+            if (inactivityCounter >= 60)
             {
+                MessageBox.Show("Приложение закрыто из-за бездействия.");
                 this.Close();
+                new MainWindow().Show();
             }
             else
             {
-                x++;
+                inactivityCounter++;
             }
-
         }
     }
 }
