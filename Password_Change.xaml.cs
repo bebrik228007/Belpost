@@ -141,7 +141,8 @@ namespace Belpost.Auth
         {
             if (inactivityCounter >= 60)
             {
-                MessageBox.Show("Приложение закрыто из-за бездействия.");
+                timer.Stop();
+                MessageBox.Show("Смена пароля закрыта из-за бездействия.");
                 this.Close();
                 new MainWindow().Show();
             }
